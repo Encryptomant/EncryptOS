@@ -8,18 +8,23 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @inputs:
+  outputs = { self, nixpkgs, home-manager, disko, ... } @inputs:
   let
     user = "Encryptomant";
 
     hosts = [
-      { hostname = "EncryptOS"; stateVersion = "25.05"; }
+      { hostname = "EncryptOS"; system = "x86_64-linux"; stateVersion = "25.05"; }
     ];
 
-    build = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    build = { hostname, system, stateVersion }: nixpkgs.lib.nixosSystem {
+      system = system;
       specialArgs = { inherit inputs user hostname stateVersion; };
 
       modules = [
@@ -30,8 +35,9 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.fileBackupExtension = "bak";
+          home-manager.backupFileExtension = "bak";
           home-manager.users.${user} = ./home-manager/home.nix;
+          home-manager.extraSpecialArgs = { inherit user stateVersion; };
         }
       ];
     };
@@ -40,7 +46,7 @@
   {
     nixosConfigurations = builtins.listToAttrs (map (host: {
       name = host.hostname;
-      value = build { inherit (host) hostname stateVersion; };
+      value = build { inherit (host) hostname system stateVersion; };
     }) hosts);
   };
 }
