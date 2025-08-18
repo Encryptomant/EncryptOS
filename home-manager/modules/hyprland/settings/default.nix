@@ -5,6 +5,7 @@
     ./decoration.nix
     ./dwindle.nix
     ./ecosystem.nix
+    ./exec-once.nix
     ./general.nix
     ./input.nix
     ./master.nix

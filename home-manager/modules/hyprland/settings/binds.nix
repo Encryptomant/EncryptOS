@@ -28,6 +28,7 @@
       "super, 8, workspace, 8"
       "super, 9, workspace, 9"
       "super, 0, workspace, 10"
+      "super, m, workspace, 11"
 
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
@@ -39,6 +40,18 @@
       "super shift, 8, movetoworkspace, 8"
       "super shift, 9, movetoworkspace, 9"
       "super shift, 0, movetoworkspace, 10"
+      "super shift, m, movetoworkspace, 11"
+
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+      ", XF86MonBrightnessUp, exec, brightnessctl set +10%"
+      ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+
+      ", XF86AudioNext, exec, playerctl next"
+      ", XF86AudioPrev, exec, playerctl previous"
+      ", XF86AudioPlay, exec, playerctl play-pause"
     ];
   };
 }

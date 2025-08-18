@@ -3,5 +3,6 @@
     ./alacritty
     ./git
     ./hyprland
+    ./waybar
   ];
 }
